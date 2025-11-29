@@ -1,5 +1,8 @@
 # Customer Churn Prediction and Segmentation
 
+[![Kaggle Notebook](https://www.kaggle.com/code/yosefmohtady/customer-churn-prediction-and-segmentation)]
+[![Follow me on Kaggle](https://www.kaggle.com/yosefmohtady)]
+
 ## Overview
 
 This project predicts customer churn and segments customers for targeted retention strategies. It provides:
@@ -7,6 +10,15 @@ This project predicts customer churn and segments customers for targeted retenti
 - A training and evaluation pipeline for churn prediction (RandomForest, XGBoost, LightGBM).
 - K-Means segmentation including churn probability as a clustering feature.
 - An interactive Streamlit dashboard for exploration and suggested retention actions.
+
+## Business Impact
+
+This project provides a dual approach to tackling customer churn.
+The predictive models enable proactive identification of individual customers at risk of churning, allowing for timely intervention.
+Simultaneously, the clustering analysis offers a strategic understanding of _why_ different customer segments churn,
+facilitating the development and implementation of highly tailored and cost-effective retention strategies.
+By understanding both _who_ is likely to churn and _which groups_ share common churn-driving characteristics,
+the business can optimize resource allocation and improve customer satisfaction and loyalty, ultimately reducing overall churn.
 
 ## Files & Key Components
 
@@ -42,7 +54,7 @@ streamlit run app.py
 ```
 
 - Local link: http://localhost:8501
-- Deployed link: <<PLACEHOLDER FOR DEPLOYED STREAMLIT APP URL>>
+- Deployed link: <<https://telco-churn-strategy.streamlit.app/>>
 
 ## Dashboard features
 
@@ -85,19 +97,24 @@ Recommendation:
 - Clustering (KMeans, $K=4$) helps prioritize groups for retention campaigns.
 - Priority score weights churn probability, average monthly ARPU, and cluster size logarithmically; it helps identify high-impact clusters to focus on.
 
+### Summary:
+
+- **Clustering identified distinct customer segments**: The project successfully segmented customers into 4 clusters. Clusters 0 and 3 were identified as high-churn risk groups, exhibiting average churn probabilities of approximately 0.66 and 0.58, respectively.
+- **High-churn clusters share specific characteristics**: Customers in high-risk Clusters 0 and 3 are predominantly on month-to-month contracts, use electronic check payment methods, and often have fiber optic internet service, coupled with lower average tenure and total charges.
+- **LightGBM is the top-performing churn prediction model**:
+  - **AUC Score**: LightGBM achieved the highest AUC score of 0.836, indicating its superior ability to distinguish between churners and non-churners.
+  - **Recall (Churn=1)**: LightGBM demonstrated a strong Recall of 0.82 for the churn class, closely followed by XGBoost (0.83) and RandomForest (0.81), indicating its effectiveness in identifying actual churners.
+  - **Accuracy**: LightGBM also showed the highest Test Accuracy (0.728) and Train Accuracy (0.758), suggesting good generalization.
+- **Model performance comparison**:
+  - **XGBoost** excelled in identifying actual churners with the highest Recall (0.83).
+  - **RandomForest** showed a balanced performance with a Recall of 0.81 and an AUC of 0.830.
+
 ## Reproducibility notes
 
 - The notebook writes out `Data/customer_data_with_clusters.csv` and saves model artifacts to `Model_Artifacts/`. If you want an identical dashboard experience, ensure these outputs are present or re-run the notebook to regenerate them.
 - The dashboard ([app.py](app.py)) reads `Data/customer_data_with_clusters.csv` via [`app.load_data`](app.py).
 
-## Next steps & improvements
-
-- Add model explainability (SHAP or per-customer feature importances) to the dashboard.
-- Add model calibration and threshold selection to optimize retention budgets.
-- Add an automated CI step to regenerate `Data/customer_data_with_clusters.csv` and re-save models after retraining.
-- Deploy the Streamlit app, then put the public URL at the "Deployed link" location above.
-
 ## License & Credits
 
 - Dataset: Telco Customer Churn dataset (Kaggle).
-- This project combines model training/selection and clustering to support targeted retention actions, with a Streamlit-based operational dashboard.
+- This project is developed by [Yousef Mohtady](https://github.com/yousefmohtady1).
